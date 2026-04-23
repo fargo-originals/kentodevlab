@@ -18,7 +18,7 @@ const securityHeaders = {
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' data: https://fonts.gstatic.com",
-    "img-src 'self' data: https: blob:",
+    "img-src 'self' data: https: blob: https://*.supabase.co",
     "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://analytics.google.com",
     "frame-src 'self'",
     "frame-ancestors 'self'",
