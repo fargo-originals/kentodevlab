@@ -14,31 +14,71 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Kento DevLab",
+  description: "Agencia de desarrollo web en Madrid. Creamos páginas web, SaaS, WebApps y E-commerce para PYMES y autónomos.",
+  url: "https://kento-devlab.com",
+  logo: "https://kento-devlab.com/logo-light-hor.png",
+  image: "https://kento-devlab.com/logo-light-hor.png",
+  telephone: "+34",
+  email: "hola@kento-devlab.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Madrid",
+    addressRegion: "Madrid",
+    addressCountry: "ES",
+  },
+  areaServed: {
+    "@type": "State",
+    name: "Comunidad de Madrid",
+  },
+  serviceType: ["Desarrollo Web", "SaaS", "E-commerce", "Mantenimiento Web"],
+  priceRange: "€€",
+};
+
 export const metadata: Metadata = {
-  title: "Kento DevLab | Desarrollo Web + SaaS + E-commerce",
-  description: "Construimos páginas web, SaaS, WebApps y E-commerce para comercios pequeños, PYMES y autónomos en Madrid. Diseño moderno, escalable y con resultados.",
-  keywords: ["desarrollo web", "SaaS", "E-commerce", "Madrid", "agencia digital", "PYMES", "autónomos", "web development"],
-  authors: [{ name: "Kento DevLab" }],
+  title: {
+    default: 'Kento DevLab | Desarrollo Web Madrid',
+    template: '%s | Kento DevLab',
+  },
+  description: 'Agencia de desarrollo web en Madrid. Creamos páginas web, SaaS, WebApps y E-commerce para PYMES y autónomos. Diseño moderno y escalable.',
+  keywords: ['desarrollo web', 'SaaS', 'E-commerce', 'Madrid', 'agencia digital', 'PYMES', 'autónomos', 'web development', 'tienda online'],
+  authors: [{ name: 'Kento DevLab' }],
+  creator: 'Kento DevLab',
+  publisher: 'Kento DevLab',
+  metadataBase: new URL('https://kento-devlab.com'),
+  alternates: {
+    canonical: 'https://kento-devlab.com',
+  },
   icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
   openGraph: {
-    title: "Kento DevLab | Desarrollo Web + SaaS + E-commerce",
-    description: "Construimos páginas web, SaaS, WebApps y E-commerce para comercios pequeños, PYMES y autónomos en Madrid.",
-    url: "https://kento-devlab.com",
-    siteName: "Kento DevLab",
-    locale: "es_ES",
-    type: "website",
+    title: 'Kento DevLab | Desarrollo Web Madrid',
+    description: 'Agencia de desarrollo web en Madrid. Creamos páginas web, SaaS, WebApps y E-commerce para PYMES y autónomos.',
+    url: 'https://kento-devlab.com',
+    siteName: 'Kento DevLab',
+    locale: 'es_ES',
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Kento DevLab | Desarrollo Web + SaaS + E-commerce",
-    description: "Construimos páginas web, SaaS, WebApps y E-commerce para comercios pequeños, PYMES y autónomos en Madrid.",
+    card: 'summary_large_image',
+    title: 'Kento DevLab | Desarrollo Web Madrid',
+    description: 'Agencia de desarrollo web en Madrid. Creamos páginas web, SaaS, WebApps y E-commerce.',
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -48,8 +88,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} ${jetbrains.variable}`}>
-      <body className="min-h-screen flex flex-col bg-background text-foreground antialiased">
+    <html lang="es">
+      <body className={`${inter.variable} ${jetbrains.variable} min-h-screen flex flex-col bg-background text-foreground antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
       </body>
     </html>

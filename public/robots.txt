@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kento-devlab.com/sitemap.xml
