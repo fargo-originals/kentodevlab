@@ -20,11 +20,11 @@ const contactFormSchema = z.object({
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
 const serviceOptions = [
-  { value: 'web', label: 'Desarrollo Web', description: 'Página web o landing page' },
-  { value: 'saas', label: 'SaaS / WebApp', description: 'Aplicación web completa' },
-  { value: 'ecommerce', label: 'E-commerce', description: 'Tienda online' },
-  { value: 'maintenance', label: 'Mantenimiento', description: 'Soporte y actualizaciones' },
-  { value: 'other', label: 'Otro', description: 'Proyecto personalizado' },
+  { value: 'web', label: 'Desarrollo Web' },
+  { value: 'saas', label: 'SaaS / WebApp' },
+  { value: 'ecommerce', label: 'E-commerce' },
+  { value: 'maintenance', label: 'Mantenimiento' },
+  { value: 'other', label: 'Otro' },
 ];
 
 const budgetOptions = [
@@ -208,25 +208,16 @@ export function Contacto() {
 
                   <div>
                     <label className="block text-sm font-medium mb-2">Servicio *</label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <select
+                      {...register('service')}
+                      className="w-full px-4 py-3 rounded-xl bg-muted border border-border focus:border-primary focus:outline-none transition-colors"
+                    >
                       {serviceOptions.map((option) => (
-                        <label
-                          key={option.value}
-                          className="flex items-center gap-3 p-3 rounded-xl bg-muted border border-border cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/10"
-                        >
-                          <input
-                            type="radio"
-                            value={option.value}
-                            {...register('service')}
-                            className="sr-only"
-                          />
-                          <div>
-                            <div className="font-medium text-sm">{option.label}</div>
-                            <div className="text-xs text-muted-foreground">{option.description}</div>
-                          </div>
-                        </label>
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
                       ))}
-                    </div>
+                    </select>
                     {errors.service && (
                       <p className="text-sm text-red-500 mt-1">{errors.service.message}</p>
                     )}
