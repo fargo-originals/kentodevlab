@@ -102,7 +102,11 @@ export default function AdminProyectos() {
         {proyectos.map((proyecto) => (
           <div key={proyecto.id} className="flex items-center justify-between p-4 rounded-xl bg-card border border-border">
             <div className="flex items-center gap-4">
-              <span className="text-3xl">{proyecto.imagen}</span>
+              {proyecto.imagen?.startsWith('http') ? (
+                <img src={proyecto.imagen} alt={proyecto.titulo} className="w-16 h-16 rounded-lg object-cover" />
+              ) : (
+                <span className="text-3xl">{proyecto.imagen}</span>
+              )}
               <div><h3 className="font-semibold">{proyecto.titulo}</h3><p className="text-sm text-muted-foreground">{proyecto.categoria}</p></div>
             </div>
             <div className="flex items-center gap-2">
