@@ -76,12 +76,12 @@ export function Footer({ redes = [] }: FooterProps) {
                   href={red.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center hover:border-primary transition-colors"
+                  className="w-12 h-12 rounded-lg bg-background border border-border flex items-center justify-center hover:border-primary transition-colors"
                 >
                   {red.icono?.startsWith('http') ? (
-                    <img src={red.icono} alt={red.nombre} className="w-6 h-6 object-contain" />
+                    <img src={red.icono} alt={red.nombre} className="w-full h-full object-contain p-1" />
                   ) : (
-                    <span className="text-lg">{red.icono}</span>
+                    <span className="text-2xl">{red.icono}</span>
                   )}
                 </a>
               ))}
