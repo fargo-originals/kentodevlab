@@ -3,8 +3,9 @@ import { supabaseAdmin } from '@/lib/admin-supabase';
 
 export async function POST(request: NextRequest) {
   const adminSession = request.cookies.get('admin_session');
+  const adminAuth = request.headers.get('x-admin-auth');
   
-  if (!adminSession || adminSession.value !== 'true') {
+  if ((!adminSession || adminSession.value !== 'true') && adminAuth !== 'true') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   

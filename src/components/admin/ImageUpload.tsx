@@ -43,6 +43,9 @@ export default function ImageUpload({ label, name, defaultValue, accept = 'image
       const res = await fetch('/api/admin/upload', {
         method: 'POST',
         body: formData,
+        headers: {
+          'x-admin-auth': 'true',
+        },
       });
 
       if (!res.ok) {
