@@ -1,6 +1,41 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/admin-supabase';
 
+const TO_EMAIL = process.env.CONTACT_EMAIL || 'hola@kento-devlab.com';
+
+const servicioLabels: Record<string, string> = {
+  web: 'Desarrollo Web',
+  saas: 'SaaS / WebApp',
+  ecommerce: 'E-commerce',
+  maintenance: 'Mantenimiento',
+  other: 'Otro',
+};
+
+async function sendEmail(name: string, email: string, phone: string | null, company: string | null, service: string, budget: string, message: string) {
+  if (!process.env.RESEND_API_KEY) return;
+  
+  const { Resend } = await import('resend');
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  
+  await resend.emails.send({
+    from: 'Kento DevLab <noreply@kento-devlab.com>',
+    to: TO_EMAIL,
+    subject: `Nuevo mensaje de ${name} - ${servicioLabels[service] || service}`,
+    html: `
+      <h2>Nuevo mensaje de contacto</h2>
+      <p><strong>Nombre:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      ${phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : ''}
+      ${company ? `<p><strong>Empresa:</strong> ${company}</p>` : ''}
+      <p><strong>Servicio:</strong> ${servicioLabels[service] || service}</p>
+      <p><strong>Presupuesto:</strong> ${budget}</p>
+      <hr>
+      <p><strong>Mensaje:</strong></p>
+      <p>${message.replace(/\n/g, '<br>')}</p>
+    `,
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -29,6 +64,8 @@ export async function POST(request: NextRequest) {
       console.error('Supabase error:', error);
       return NextResponse.json({ error: 'Error al guardar mensaje' }, { status: 500 });
     }
+
+    await sendEmail(name, email, phone, company, service, budget, message);
 
     return NextResponse.json({ success: true, id: data.id });
   } catch (error) {
