@@ -129,7 +129,8 @@ export async function updateHero(hero: Partial<HeroContent>): Promise<HeroConten
   const { data, error } = await supabaseAdmin
     .from('hero')
     .update(hero)
-    .limit(1)
+    .eq('id', hero.id || '00000000-0000-0000-0000-000000000000')
+    .select()
     .single();
   if (error) throw error;
   return data as HeroContent;

@@ -31,6 +31,7 @@ export default function AdminHero() {
     console.log('Guardando hero con imagen:', imagenUrl);
     try {
       await updateHero({
+        id: hero?.id,
         titulo: formData.get('titulo') as string,
         subtitulo: formData.get('subtitulo') as string,
         descripcion: formData.get('descripcion') as string,

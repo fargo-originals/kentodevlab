@@ -31,7 +31,7 @@ export interface Testimonio {
 }
 
 export interface HeroContent {
-  id?: string;
+  id: string;
   titulo: string;
   subtitulo: string;
   descripcion: string;
