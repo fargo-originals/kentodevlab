@@ -56,9 +56,22 @@ export function Contacto() {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
-    setIsSubmitted(true);
+    try {
+      const res = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        throw new Error('Error al enviar');
+      }
+
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error al enviar el mensaje. Inténtalo de nuevo.');
+    }
   };
 
   return (
