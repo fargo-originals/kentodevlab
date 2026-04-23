@@ -78,7 +78,11 @@ export function Footer({ redes = [] }: FooterProps) {
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center hover:border-primary transition-colors"
                 >
-                  <span className="text-lg">{red.icono}</span>
+                  {red.icono?.startsWith('http') ? (
+                    <img src={red.icono} alt={red.nombre} className="w-6 h-6 object-contain" />
+                  ) : (
+                    <span className="text-lg">{red.icono}</span>
+                  )}
                 </a>
               ))}
             </div>
