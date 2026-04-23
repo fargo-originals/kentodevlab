@@ -27,12 +27,14 @@ export default function AdminHero() {
     e.preventDefault();
     setGuardando(true);
     const formData = new FormData(e.currentTarget);
+    const imagenUrl = formData.get('imagen') as string;
+    console.log('Guardando hero con imagen:', imagenUrl);
     try {
       await updateHero({
         titulo: formData.get('titulo') as string,
         subtitulo: formData.get('subtitulo') as string,
         descripcion: formData.get('descripcion') as string,
-        imagen: formData.get('imagen') as string,
+        imagen: imagenUrl,
       });
       alert('Guardado correctamente');
     } catch (error) {
