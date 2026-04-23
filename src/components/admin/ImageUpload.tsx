@@ -39,7 +39,10 @@ export default function ImageUpload({ label, name, defaultValue, accept = 'image
         body: formData,
       });
 
-      if (!res.ok) throw new Error('Error al subir imagen');
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || 'Error al subir imagen');
+      }
 
       const data = await res.json();
       
@@ -47,8 +50,8 @@ export default function ImageUpload({ label, name, defaultValue, accept = 'image
       if (hiddenInput) {
         hiddenInput.value = data.url;
       }
-    } catch (err) {
-      setError('Error al subir imagen');
+    } catch (err: any) {
+      setError(err.message || 'Error al subir imagen');
       console.error(err);
     } finally {
       setUploading(false);
