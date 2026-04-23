@@ -50,7 +50,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src={theme === 'light' ? '/logo-dark.png' : '/logo-light.png'}
+            src={theme === 'light' ? '/logo-light.png' : '/logo-dark.png'}
             alt="Kento DevLab"
             width={140}
             height={40}
