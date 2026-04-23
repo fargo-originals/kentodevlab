@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import type { Servicio, Proyecto, Testimonio, HeroContent, Estadistica } from '@/types/content';
+import type { Servicio, Proyecto, Testimonio, HeroContent, Estadistica, RedSocial } from '@/types/content';
 
 export async function getServicios(): Promise<Servicio[]> {
   const { data, error } = await supabase
@@ -56,14 +56,26 @@ export async function getEstadisticas(): Promise<Estadistica[]> {
   return data as Estadistica[];
 }
 
+export async function getRedesSociales(): Promise<RedSocial[]> {
+  const { data, error } = await supabase
+    .from('redes_sociales')
+    .select('*')
+    .eq('activo', true)
+    .order('orden', { ascending: true });
+  
+  if (error) throw error;
+  return data as RedSocial[];
+}
+
 export async function getAllContent() {
-  const [servicios, proyectos, testimonios, hero, estadisticas] = await Promise.all([
+  const [servicios, proyectos, testimonios, hero, estadisticas, redes] = await Promise.all([
     getServicios(),
     getProyectos(),
     getTestimonios(),
     getHero(),
-    getEstadisticas()
+    getEstadisticas(),
+    getRedesSociales()
   ]);
   
-  return { servicios, proyectos, testimonios, hero, estadisticas };
+  return { servicios, proyectos, testimonios, hero, estadisticas, redes };
 }

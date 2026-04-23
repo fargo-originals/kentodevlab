@@ -1,5 +1,5 @@
 import { supabaseAdmin } from '@/lib/admin-supabase';
-import type { Servicio, Proyecto, Testimonio, HeroContent, Estadistica } from '@/types/content';
+import type { Servicio, Proyecto, Testimonio, HeroContent, Estadistica, RedSocial } from '@/types/content';
 
 export async function getAllServicios(): Promise<Servicio[]> {
   const { data, error } = await supabaseAdmin
@@ -154,4 +154,42 @@ export async function updateEstadistica(id: string, estadistica: Partial<Estadis
     .single();
   if (error) throw error;
   return data as Estadistica;
+}
+
+export async function getAllRedesSociales(): Promise<RedSocial[]> {
+  const { data, error } = await supabaseAdmin
+    .from('redes_sociales')
+    .select('*')
+    .order('orden', { ascending: true });
+  if (error) throw error;
+  return data as RedSocial[];
+}
+
+export async function createRedSocial(red: Omit<RedSocial, 'id'>): Promise<RedSocial> {
+  const { data, error } = await supabaseAdmin
+    .from('redes_sociales')
+    .insert(red)
+    .select()
+    .single();
+  if (error) throw error;
+  return data as RedSocial;
+}
+
+export async function updateRedSocial(id: string, red: Partial<RedSocial>): Promise<RedSocial> {
+  const { data, error } = await supabaseAdmin
+    .from('redes_sociales')
+    .update(red)
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data as RedSocial;
+}
+
+export async function deleteRedSocial(id: string): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from('redes_sociales')
+    .delete()
+    .eq('id', id);
+  if (error) throw error;
 }

@@ -51,6 +51,7 @@ export default function AdminLayout({
             <Link href="/admin/testimonios" className="text-sm text-muted-foreground hover:text-foreground">Testimonios</Link>
             <Link href="/admin/hero" className="text-sm text-muted-foreground hover:text-foreground">Hero</Link>
             <Link href="/admin/estadisticas" className="text-sm text-muted-foreground hover:text-foreground">Stats</Link>
+            <Link href="/admin/redes-sociales" className="text-sm text-muted-foreground hover:text-foreground">Redes</Link>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">Ver sitio</Link>

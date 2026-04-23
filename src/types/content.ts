@@ -45,3 +45,12 @@ export interface Estadistica {
   orden?: number;
   activo?: boolean;
 }
+
+export interface RedSocial {
+  id?: string;
+  nombre: string;
+  url: string;
+  icono: string;
+  orden?: number;
+  activo?: boolean;
+}

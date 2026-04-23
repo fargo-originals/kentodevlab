@@ -1,4 +1,4 @@
-import { getHero, getEstadisticas, getServicios, getProyectos, getTestimonios } from '@/lib/content';
+import { getHero, getEstadisticas, getServicios, getProyectos, getTestimonios, getRedesSociales } from '@/lib/content';
 import { Header } from '@/components/sections/Header';
 import { Hero } from '@/components/sections/Hero';
 import { Servicios } from '@/components/sections/Servicios';
@@ -10,12 +10,13 @@ import { CookieBanner } from '@/components/sections/CookieBanner';
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const [hero, estadisticas, servicios, proyectos, testimonios] = await Promise.all([
+  const [hero, estadisticas, servicios, proyectos, testimonios, redes] = await Promise.all([
     getHero().catch(() => null),
     getEstadisticas().catch(() => []),
     getServicios().catch(() => []),
     getProyectos().catch(() => []),
     getTestimonios().catch(() => []),
+    getRedesSociales().catch(() => []),
   ]);
 
   return (
@@ -27,7 +28,7 @@ export default async function Home() {
         <Portfolio proyectos={proyectos} testimonios={testimonios} />
         <Contacto />
       </main>
-      <Footer />
+      <Footer redes={redes} />
       <CookieBanner />
     </>
   );
