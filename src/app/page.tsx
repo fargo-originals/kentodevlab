@@ -5,6 +5,7 @@ import { Servicios } from '@/components/sections/Servicios';
 import { Portfolio } from '@/components/sections/Portfolio';
 import { Contacto } from '@/components/sections/Contacto';
 import { Footer } from '@/components/sections/Footer';
+import { CookieBanner } from '@/components/sections/CookieBanner';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,6 +28,7 @@ export default async function Home() {
         <Contacto />
       </main>
       <Footer />
+      <CookieBanner />
     </>
   );
 }
