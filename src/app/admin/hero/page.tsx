@@ -9,6 +9,7 @@ export default function AdminHero() {
   const [hero, setHero] = useState<HeroContent | null>(null);
   const [loading, setLoading] = useState(true);
   const [guardando, setGuardando] = useState(false);
+  const [imagenUrl, setImagenUrl] = useState<string>('');
 
   useEffect(() => { loadHero(); }, []);
 
@@ -16,6 +17,9 @@ export default function AdminHero() {
     try {
       const data = await getHeroContent();
       setHero(data);
+      const existingImage = data?.imagen || '';
+      setImagenUrl(existingImage);
+      console.log('Loaded hero imagen:', existingImage);
     } catch (error) {
       console.error('Error:', error);
     } finally {
@@ -27,8 +31,6 @@ export default function AdminHero() {
     e.preventDefault();
     setGuardando(true);
     const formData = new FormData(e.currentTarget);
-    const imagenUrl = formData.get('imagen') as string;
-    console.log('Guardando hero con imagen:', imagenUrl);
     try {
       await updateHero({
         id: hero?.id,
@@ -55,7 +57,15 @@ export default function AdminHero() {
       </div>
 
       <form onSubmit={handleSubmit} className="max-w-lg space-y-4">
-        <ImageUpload label="Imagen de fondo" name="imagen" defaultValue={hero?.imagen} />
+        <ImageUpload 
+          label="Imagen de fondo" 
+          name="imagen" 
+          defaultValue={hero?.imagen}
+          onChange={(url) => {
+            console.log('ImageUpload onChange:', url);
+            setImagenUrl(url);
+          }} 
+        />
         <div>
           <label className="block text-sm mb-1">Título principal</label>
           <input name="titulo" defaultValue={hero?.titulo} required className="w-full px-4 py-2 rounded-lg bg-muted border border-border" />
