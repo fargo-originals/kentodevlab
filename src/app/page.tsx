@@ -1,25 +1,24 @@
-import { Header } from '@/components/sections/Header';
+import { getHero, getEstadisticas, getServicios, getProyectos, getTestimonios } from '@/lib/content';
 import { Hero } from '@/components/sections/Hero';
 import { Servicios } from '@/components/sections/Servicios';
-import { SobreNos } from '@/components/sections/SobreNos';
-import { Proceso } from '@/components/sections/Proceso';
 import { Portfolio } from '@/components/sections/Portfolio';
-import { Contacto } from '@/components/sections/Contacto';
-import { Footer } from '@/components/sections/Footer';
 
-export default function Home() {
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+  const [hero, estadisticas, servicios, proyectos, testimonios] = await Promise.all([
+    getHero().catch(() => null),
+    getEstadisticas().catch(() => []),
+    getServicios().catch(() => []),
+    getProyectos().catch(() => []),
+    getTestimonios().catch(() => []),
+  ]);
+
   return (
     <>
-      <Header />
-      <main>
-        <Hero />
-        <Servicios />
-        <SobreNos />
-        <Proceso />
-        <Portfolio />
-        <Contacto />
-      </main>
-      <Footer />
+      <Hero hero={hero} estadisticas={estadisticas} />
+      <Servicios servicios={servicios} />
+      <Portfolio proyectos={proyectos} testimonios={testimonios} />
     </>
   );
 }

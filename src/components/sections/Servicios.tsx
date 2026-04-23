@@ -1,37 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import type { Servicio } from '@/types/content';
 
-const services = [
-  {
-    title: 'Desarrollo Web',
-    description: 'Páginas web institucionales, landing pages y sitios corporativos diseñados para convertir.',
-    icon: '🌐',
-    features: ['Diseño responsive', 'SEO optimizado', 'CMS easy to use'],
-    colSpan: 'md:col-span-2',
-  },
-  {
-    title: 'SaaS & WebApps',
-    description: 'Aplicaciones web personalizadas con autenticación, dashboards y funcionalidades avanzadas.',
-    icon: '⚡',
-    features: ['Auth robusta', 'Dashboard admin', 'APIs REST/GraphQL'],
-    colSpan: 'md:col-span-1',
-  },
-  {
-    title: 'E-commerce',
-    description: 'Tiendas online con pasarela de pagos, inventario y gestión de pedidos integrada.',
-    icon: '🛒',
-    features: ['Stripe/PayPal', 'Inventario', 'Reportes'],
-    colSpan: 'md:col-span-1',
-  },
-  {
-    title: 'Mantenimiento',
-    description: 'Soporte continuo, actualizaciones de seguridad y mejoras mensuales.',
-    icon: '🔧',
-    features: ['Actualizaciones', 'Seguridad 24/7', 'Soporte prioritário'],
-    colSpan: 'md:col-span-2',
-  },
-];
+interface ServiciosProps {
+  servicios?: Servicio[];
+}
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -54,7 +28,14 @@ const itemVariants = {
   },
 };
 
-export function Servicios() {
+export function Servicios({ servicios = [] }: ServiciosProps) {
+  const services = servicios.length > 0 ? servicios : [
+    { titulo: 'Desarrollo Web', descripcion: 'Páginas web institucionales, landing pages y sitios corporativos diseñados para convertir.', icono: '🌐', caracteristicas: ['Diseño responsive', 'SEO optimizado', 'CMS fácil de usar'], col_span: 'md:col-span-2' },
+    { titulo: 'SaaS & WebApps', descripcion: 'Aplicaciones web personalizadas con autenticación, dashboards y funcionalidades avanzadas.', icono: '⚡', caracteristicas: ['Auth robusta', 'Dashboard admin', 'APIs REST/GraphQL'], col_span: 'md:col-span-1' },
+    { titulo: 'E-commerce', descripcion: 'Tiendas online con pasarela de pagos, inventario y gestión de pedidos integrada.', icono: '🛒', caracteristicas: ['Stripe/PayPal', 'Inventario', 'Reportes'], col_span: 'md:col-span-1' },
+    { titulo: 'Mantenimiento', descripcion: 'Soporte continuo, actualizaciones de seguridad y mejoras mensuales.', icono: '🔧', caracteristicas: ['Actualizaciones', 'Seguridad 24/7', 'Soporte prioritario'], col_span: 'md:col-span-2' },
+  ];
+
   return (
     <section id="servicios" className="py-24 md:py-32 bg-background">
       <div className="max-w-7xl mx-auto px-6">
@@ -86,15 +67,15 @@ export function Servicios() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className={`${service.colSpan} group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10`}
+              className={`${service.col_span} group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10`}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
               <div className="relative">
-                <span className="text-4xl mb-4 block">{service.icon}</span>
-                <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-                <p className="text-muted-foreground mb-4">{service.description}</p>
+                <span className="text-4xl mb-4 block">{service.icono}</span>
+                <h3 className="text-xl font-bold mb-2">{service.titulo}</h3>
+                <p className="text-muted-foreground mb-4">{service.descripcion}</p>
                 <ul className="space-y-2">
-                  {service.features.map((feature, i) => (
+                  {(service.caracteristicas || []).map((feature: string, i: number) => (
                     <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
                       <svg
                         className="w-4 h-4 text-primary"

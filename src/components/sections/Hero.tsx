@@ -2,6 +2,12 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import type { HeroContent, Estadistica } from '@/types/content';
+
+interface HeroProps {
+  hero?: HeroContent | null;
+  estadisticas?: Estadistica[];
+}
 
 const heroVariants = {
   hidden: { opacity: 0 },
@@ -26,7 +32,18 @@ const itemVariants = {
   },
 };
 
-export function Hero() {
+export function Hero({ hero, estadisticas = [] }: HeroProps) {
+  const titulo = hero?.titulo || 'Transformamos tu negocio digital';
+  const subtitulo = hero?.subtitulo || 'Madrid, España';
+  const descripcion = hero?.descripcion || 'Construimos páginas web, SaaS, WebApps y E-commerce que generan resultados. Diseños modernos, escalables y optimizados para convertir visitantes en clientes.';
+
+  const stats = estadisticas.length > 0 ? estadisticas : [
+    { valor: '50+', etiqueta: 'Proyectos entregados' },
+    { valor: '98%', etiqueta: 'Clientes satisfechos' },
+    { valor: '24h', etiqueta: 'Tiempo de respuesta' },
+    { valor: '100%', etiqueta: 'Proyectos escalables' },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
@@ -45,7 +62,7 @@ export function Hero() {
         <motion.div variants={itemVariants} className="mb-6">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted text-sm text-muted-foreground font-mono">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            Madrid, España
+            {subtitulo}
           </span>
         </motion.div>
 
@@ -53,9 +70,9 @@ export function Hero() {
           variants={itemVariants}
           className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
         >
-          Transformamos tu{' '}
+          {titulo.split(' ').slice(0, -1).join(' ')}{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-            negocio digital
+            {titulo.split(' ').slice(-1)}
           </span>
         </motion.h1>
 
@@ -63,8 +80,7 @@ export function Hero() {
           variants={itemVariants}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
         >
-          Construimos páginas web, SaaS, WebApps y E-commerce que generan resultados. 
-          Diseños modernos, escalables y optimizados para converter visitantes en clientes.
+          {descripcion}
         </motion.p>
 
         <motion.div
@@ -89,17 +105,12 @@ export function Hero() {
           variants={itemVariants}
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8"
         >
-          {[
-            { value: '50+', label: 'Proyectos entregables' },
-            { value: '98%', label: 'Clientes satisfactorios' },
-            { value: '24h', label: 'Tiempo de respuesta' },
-            { value: '100%', label: 'Proyectos escalables' },
-          ].map((stat, index) => (
+          {stats.map((stat, index) => (
             <div key={index} className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
-                {stat.value}
+                {stat.valor}
               </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div className="text-sm text-muted-foreground">{stat.etiqueta}</div>
             </div>
           ))}
         </motion.div>
