@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getAllProyectos, createProyecto, updateProyecto, deleteProyecto } from '@/lib/admin-content';
 import type { Proyecto } from '@/types/content';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 export default function AdminProyectos() {
   const [proyectos, setProyectos] = useState<Proyecto[]>([]);
@@ -85,7 +86,7 @@ export default function AdminProyectos() {
               <div><label className="block text-sm mb-1">Título</label><input name="titulo" defaultValue={editando?.titulo} required className="w-full px-4 py-2 rounded-lg bg-muted border border-border" /></div>
               <div><label className="block text-sm mb-1">Categoría</label><input name="categoria" defaultValue={editando?.categoria} required className="w-full px-4 py-2 rounded-lg bg-muted border border-border" /></div>
               <div><label className="block text-sm mb-1">Descripción</label><textarea name="descripcion" defaultValue={editando?.descripcion} required className="w-full px-4 py-2 rounded-lg bg-muted border border-border" /></div>
-              <div><label className="block text-sm mb-1">Imagen (emoji)</label><input name="imagen" defaultValue={editando?.imagen} required className="w-full px-4 py-2 rounded-lg bg-muted border border-border" /></div>
+              <ImageUpload label="Imagen" name="imagen" defaultValue={editando?.imagen} />
               <div><label className="block text-sm mb-1">Orden</label><input name="orden" type="number" defaultValue={editando?.orden || 0} className="w-full px-4 py-2 rounded-lg bg-muted border border-border" /></div>
               <div><label className="flex items-center gap-2"><input name="activo" type="checkbox" defaultChecked={editando?.activo ?? true} /><span className="text-sm">Activo</span></label></div>
             </div>

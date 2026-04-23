@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getHeroContent, updateHero } from '@/lib/admin-content';
 import type { HeroContent } from '@/types/content';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 export default function AdminHero() {
   const [hero, setHero] = useState<HeroContent | null>(null);
@@ -31,6 +32,7 @@ export default function AdminHero() {
         titulo: formData.get('titulo') as string,
         subtitulo: formData.get('subtitulo') as string,
         descripcion: formData.get('descripcion') as string,
+        imagen: formData.get('imagen') as string,
       });
       alert('Guardado correctamente');
     } catch (error) {
@@ -50,6 +52,7 @@ export default function AdminHero() {
       </div>
 
       <form onSubmit={handleSubmit} className="max-w-lg space-y-4">
+        <ImageUpload label="Imagen de fondo" name="imagen" defaultValue={hero?.imagen} />
         <div>
           <label className="block text-sm mb-1">Título principal</label>
           <input name="titulo" defaultValue={hero?.titulo} required className="w-full px-4 py-2 rounded-lg bg-muted border border-border" />

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getAllTestimonios, createTestimonio, updateTestimonio, deleteTestimonio } from '@/lib/admin-content';
 import type { Testimonio } from '@/types/content';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 export default function AdminTestimonios() {
   const [testimonios, setTestimonios] = useState<Testimonio[]>([]);
@@ -28,6 +29,7 @@ export default function AdminTestimonios() {
       empresa: formData.get('empresa') as string,
       mensaje: formData.get('mensaje') as string,
       rating: parseInt(formData.get('rating') as string) || 5,
+      avatar: formData.get('avatar') as string,
       orden: parseInt(formData.get('orden') as string) || 0,
       activo: formData.get('activo') === 'on',
     };
@@ -61,6 +63,7 @@ export default function AdminTestimonios() {
           <form onSubmit={handleSubmit} className="bg-card p-6 rounded-2xl w-full max-w-lg border border-border">
             <h2 className="text-xl font-bold mb-4">{editando ? 'Editar' : 'Nuevo'} testimonio</h2>
             <div className="space-y-4">
+              <ImageUpload label="Avatar/Foto" name="avatar" defaultValue={editando?.avatar} maxSizeMB={2} />
               <div><label className="block text-sm mb-1">Nombre</label><input name="nombre" defaultValue={editando?.nombre} required className="w-full px-4 py-2 rounded-lg bg-muted border border-border" /></div>
               <div><label className="block text-sm mb-1">Empresa</label><input name="empresa" defaultValue={editando?.empresa} className="w-full px-4 py-2 rounded-lg bg-muted border border-border" /></div>
               <div><label className="block text-sm mb-1">Mensaje</label><textarea name="mensaje" defaultValue={editando?.mensaje} required className="w-full px-4 py-2 rounded-lg bg-muted border border-border" /></div>

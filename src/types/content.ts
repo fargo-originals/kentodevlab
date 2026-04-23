@@ -25,6 +25,7 @@ export interface Testimonio {
   empresa: string;
   mensaje: string;
   rating: number;
+  avatar?: string;
   orden?: number;
   activo?: boolean;
 }
@@ -34,6 +35,7 @@ export interface HeroContent {
   titulo: string;
   subtitulo: string;
   descripcion: string;
+  imagen?: string;
 }
 
 export interface Estadistica {
