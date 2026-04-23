@@ -8,18 +8,18 @@ interface ImageUploadProps {
   defaultValue?: string;
   accept?: string;
   maxSizeMB?: number;
+  onChange?: (url: string) => void;
 }
 
-export default function ImageUpload({ label, name, defaultValue, accept = 'image/*', maxSizeMB = 5 }: ImageUploadProps) {
+export default function ImageUpload({ label, name, defaultValue, accept = 'image/*', maxSizeMB = 5, onChange }: ImageUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [currentUrl, setCurrentUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (defaultValue) {
-      setPreview(defaultValue);
-    }
+    setCurrentUrl(defaultValue || null);
   }, [defaultValue]);
 
   async function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
@@ -51,10 +51,12 @@ export default function ImageUpload({ label, name, defaultValue, accept = 'image
       }
 
       const data = await res.json();
+      const url = data.url;
+      setCurrentUrl(url);
+      setPreview(url);
       
-      const hiddenInput = document.querySelector(`input[name="${name}"]`) as HTMLInputElement;
-      if (hiddenInput) {
-        hiddenInput.value = data.url;
+      if (onChange) {
+        onChange(url);
       }
     } catch (err: any) {
       setError(err.message || 'Error al subir imagen');
@@ -64,18 +66,20 @@ export default function ImageUpload({ label, name, defaultValue, accept = 'image
     }
   }
 
+  const displayPreview = preview || currentUrl;
+
   return (
     <div>
       <label className="block text-sm mb-1">{label}</label>
-      <input type="hidden" name={name} defaultValue={defaultValue} />
+      <input type="hidden" name={name} value={currentUrl || ''} />
       
       <div 
         onClick={() => fileInputRef.current?.click()}
         className="border-2 border-dashed border-border rounded-lg p-4 cursor-pointer hover:border-primary transition-colors"
       >
-        {preview ? (
+        {displayPreview ? (
           <div className="relative">
-            <img src={preview} alt="Preview" className="max-h-48 mx-auto rounded-lg object-cover" />
+            <img src={displayPreview} alt="Preview" className="max-h-48 mx-auto rounded-lg object-cover" />
             <p className="text-center text-sm text-muted-foreground mt-2">Click para cambiar</p>
           </div>
         ) : (
