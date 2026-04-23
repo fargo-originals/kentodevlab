@@ -52,7 +52,11 @@ export function Portfolio({ proyectos = [], testimonios = [] }: PortfolioProps) 
               className="group relative overflow-hidden rounded-2xl bg-card border border-border"
             >
               <div className="aspect-square flex items-center justify-center text-6xl bg-muted/50">
-                {project.imagen}
+                {project.imagen?.startsWith('http') ? (
+                  <img src={project.imagen} alt={project.titulo} className="w-full h-full object-cover" />
+                ) : (
+                  project.imagen
+                )}
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                 <div className="absolute bottom-0 p-6">
@@ -93,9 +97,18 @@ export function Portfolio({ proyectos = [], testimonios = [] }: PortfolioProps) 
                 ))}
               </div>
               <p className="text-muted-foreground mb-4">&ldquo;{testimonial.mensaje}&rdquo;</p>
-              <div>
-                <div className="font-semibold">{testimonial.nombre}</div>
-                <div className="text-sm text-muted-foreground">{testimonial.empresa}</div>
+              <div className="flex items-center gap-3">
+                {testimonial.avatar?.startsWith('http') ? (
+                  <img src={testimonial.avatar} alt={testimonial.nombre} className="w-10 h-10 rounded-full object-cover" />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                    <span className="text-primary font-semibold">{testimonial.nombre.charAt(0)}</span>
+                  </div>
+                )}
+                <div>
+                  <div className="font-semibold">{testimonial.nombre}</div>
+                  <div className="text-sm text-muted-foreground">{testimonial.empresa}</div>
+                </div>
               </div>
             </motion.div>
           ))}

@@ -36,6 +36,7 @@ export function Hero({ hero, estadisticas = [] }: HeroProps) {
   const titulo = hero?.titulo || 'Transformamos tu negocio digital';
   const subtitulo = hero?.subtitulo || 'Madrid, España';
   const descripcion = hero?.descripcion || 'Construimos páginas web, SaaS, WebApps y E-commerce que generan resultados. Diseños modernos, escalables y optimizados para convertir visitantes en clientes.';
+  const imagen = hero?.imagen;
 
   const stats = estadisticas.length > 0 ? estadisticas : [
     { valor: '50+', etiqueta: 'Proyectos entregados' },
@@ -46,6 +47,12 @@ export function Hero({ hero, estadisticas = [] }: HeroProps) {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      {imagen && (
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+          style={{ backgroundImage: `url(${imagen})` }}
+        />
+      )}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
       
       <div className="absolute inset-0 overflow-hidden">
