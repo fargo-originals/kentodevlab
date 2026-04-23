@@ -36,10 +36,9 @@ export function Hero({ hero, estadisticas = [] }: HeroProps) {
   const titulo = hero?.titulo || 'Transformamos tu negocio digital';
   const subtitulo = hero?.subtitulo || 'Madrid, España';
   const descripcion = hero?.descripcion || 'Construimos páginas web, SaaS, WebApps y E-commerce que generan resultados. Diseños modernos, escalables y optimizados para convertir visitantes en clientes.';
-  const imagen = hero?.imagen;
+  const imagenUrl = hero?.imagen;
   
-  console.log('Hero data:', hero);
-  console.log('Hero imagen:', imagen);
+  console.log('Hero completo:', JSON.stringify(hero));
 
   const stats = estadisticas.length > 0 ? estadisticas : [
     { valor: '50+', etiqueta: 'Proyectos entregados' },
@@ -50,14 +49,14 @@ export function Hero({ hero, estadisticas = [] }: HeroProps) {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      {imagen && imagen.startsWith('http') && (
+      {imagenUrl && imagenUrl.startsWith('http') && (
         <img 
-          src={imagen} 
+          src={imagenUrl} 
           alt="Hero background"
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
+          className="absolute inset-0 w-full h-full object-cover opacity-15"
         />
       )}
-      {!imagen && (
+      {!imagenUrl && (
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" />
       )}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background" />
