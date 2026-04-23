@@ -16,17 +16,17 @@
 }
 
 [data-theme="light"] {
-  --background: #fafafa;
+  --background: #ffffff;
   --foreground: #18181b;
   --primary: #0891b2;
   --primary-foreground: #ffffff;
   --muted: #f4f4f5;
-  --muted-foreground: #71717a;
+  --muted-foreground: #52525b;
   --accent: #ea580c;
   --accent-foreground: #ffffff;
   --card: #ffffff;
   --card-foreground: #18181b;
-  --border: #e4e4e7;
+  --border: #d4d4d8;
   --ring: #0891b2;
 }
 

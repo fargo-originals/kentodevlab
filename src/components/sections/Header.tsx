@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -36,7 +36,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/logo-light-hor.png"
+            src="/logo-hor-nofon.png"
             alt="Kento DevLab"
             width={140}
             height={40}
@@ -49,7 +49,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-foreground/80 hover:text-foreground transition-colors"
             >
               {item.label}
             </Link>
@@ -107,21 +107,21 @@ export function Header() {
             <nav className="flex flex-col p-6 gap-4">
               <Link
                 href="#servicios"
-                className="text-lg text-muted-foreground hover:text-foreground transition-colors"
+                className="text-lg text-foreground/80 hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Servicios
               </Link>
               <Link
                 href="#proceso"
-                className="text-lg text-muted-foreground hover:text-foreground transition-colors"
+                className="text-lg text-foreground/80 hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Proceso
               </Link>
               <Link
                 href="#portfolio"
-                className="text-lg text-muted-foreground hover:text-foreground transition-colors"
+                className="text-lg text-foreground/80 hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Portfolio
