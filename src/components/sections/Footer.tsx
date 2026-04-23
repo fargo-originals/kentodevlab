@@ -28,7 +28,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <Image
-                src="/logo-hor-nofon.png"
+                src="/logo-light-hor.png"
                 alt="Kento DevLab"
                 width={140}
                 height={40}
