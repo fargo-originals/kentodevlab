@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -21,6 +24,21 @@ const footerLinks = {
 };
 
 export function Footer() {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('theme') as 'dark' | 'light' | null;
+    setTheme(saved || 'dark');
+    
+    const observer = new MutationObserver(() => {
+      const t = document.documentElement.getAttribute('data-theme');
+      setTheme(t === 'light' ? 'light' : 'dark');
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <footer className="py-16 bg-muted/30 border-t border-border">
       <div className="max-w-7xl mx-auto px-6">
@@ -28,7 +46,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <Image
-                src="/logo-hor-nofon.png"
+                src={theme === 'light' ? '/logo-dark.png' : '/logo-light.png'}
                 alt="Kento DevLab"
                 width={140}
                 height={40}
