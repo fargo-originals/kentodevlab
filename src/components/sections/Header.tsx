@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import ThemeToggle from './ThemeToggle';
 
 const navItems = [
   { href: '#servicios', label: 'Servicios' },
@@ -55,7 +56,8 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-6">
+          <ThemeToggle />
           <Link
             href="#contacto"
             className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
@@ -103,23 +105,44 @@ export function Header() {
             className="md:hidden bg-background border-b border-border"
           >
             <nav className="flex flex-col p-6 gap-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-lg text-muted-foreground hover:text-foreground transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
               <Link
-                href="#contacto"
-                className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg bg-accent text-accent-foreground transition-colors"
+                href="#servicios"
+                className="text-lg text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Cotizar Proyecto
+                Servicios
               </Link>
+              <Link
+                href="#proceso"
+                className="text-lg text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Proceso
+              </Link>
+              <Link
+                href="#portfolio"
+                className="text-lg text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Portfolio
+              </Link>
+              <Link
+                href="#contacto"
+                className="text-lg text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contacto
+              </Link>
+              <div className="flex items-center gap-4 pt-2">
+                <ThemeToggle />
+                <Link
+                  href="#contacto"
+                  className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg bg-accent text-accent-foreground transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Cotizar Proyecto
+                </Link>
+              </div>
             </nav>
           </motion.div>
         )}
