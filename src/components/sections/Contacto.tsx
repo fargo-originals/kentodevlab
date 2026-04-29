@@ -102,7 +102,7 @@ export function Contacto() {
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground">Email</div>
-                  <div className="font-medium">hola@kento-devlab.com</div>
+                  <div className="font-medium">hola@kentodevlab.com</div>
                 </div>
               </div>
 
