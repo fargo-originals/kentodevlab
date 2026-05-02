@@ -7,8 +7,6 @@ import { Contacto } from '@/components/sections/Contacto';
 import { Footer } from '@/components/sections/Footer';
 import { CookieBanner } from '@/components/sections/CookieBanner';
 
-export const dynamic = 'force-dynamic';
-
 export default async function Home() {
   const [hero, estadisticas, servicios, proyectos, testimonios, redes] = await Promise.all([
     getHero().catch(() => null),
